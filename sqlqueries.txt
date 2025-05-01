@@ -1,0 +1,82 @@
+//Aliases example
+
+select GameName.nameofgame AS 'Name of Game', ReleaseDate.release_date AS 'Release Date', LastUpdate.last_update AS 'Last Update' from GameName
+inner join ReleaseDate on (GameName.nameofgame = ReleaseDate.nameofgame)
+inner join LastUpdate on (GameName.nameofgame = LastUpdate.nameofgame);
+
+//group by example
+
+select GameName.nameofgame, ReleaseDate.release_date, game_type.game_type_name, modes.mode_numbers from GameName
+inner join ReleaseDate on (GameName.nameofgame = ReleaseDate.nameofgame)
+inner join game_type on (GameName.nameofgame = game_type.nameofgame)
+inner join modes on (GameName.nameofgame = modes.nameofgame)
+group by modes.mode_numbers;
+
+//where and inner join including example
+
+select GameName.nameofgame, ReleaseDate.release_date, LastUpdate.last_update, game_type.game_type_name from GameName
+inner join ReleaseDate on (GameName.nameofgame = ReleaseDate.nameofgame)
+inner join LastUpdate on (GameName.nameofgame = LastUpdate.nameofgame)
+inner join game_type on (GameName.nameofgame = game_type.nameofgame)
+where ReleaseDate.release_date like '%2020';
+
+//more than two tables joined with inner join only
+
+select GameName.nameofgame, ReleaseDate.release_date, LastUpdate.last_update, game_type.game_type_name from GameName
+inner join ReleaseDate on (GameName.nameofgame = ReleaseDate.nameofgame)
+inner join LastUpdate on (GameName.nameofgame = LastUpdate.nameofgame)
+inner join game_type on (GameName.nameofgame = game_type.nameofgame);
+
+//group by and ordey by example
+select GameName.nameofgame, GameParts.Number AS 'Game Parts' from GameName
+inner join GameParts on (GameName.nameofgame = GameParts.nameofgame)
+group by GameName.nameofgame
+order by GameParts.Number desc;
+
+select GameName.nameofgame, streamers.streamer_name from GameName inner join streamers on (GameName.nameofgame = streamers.nameofgame);
+
+select GameName.nameofgame, weapons.weapon_numbers from GameName
+inner join weapons on (GameName.nameofgame = weapons.nameofgame)
+where weapons.weapon_numbers >= 30;
+
+select GameName.nameofgame, ReleaseDate.release_date, audience.audience_number, LastUpdate.last_update, GameParts.Number, game_type.game_type_name, weapons.weapon_numbers, streamers.streamer_id, streamers.streamer_name, streamers.subscribers, maps.map_amount, modes.mode_numbers from GameName
+inner join ReleaseDate on (GameName.nameofgame = ReleaseDate.nameofgame)
+inner join audience on (GameName.nameofgame = audience.nameofgame)
+inner join LastUpdate on (GameName.nameofgame = LastUpdate.nameofgame)
+inner join GameParts on (GameName.nameofgame = GameParts.nameofgame)
+inner join game_type on (GameName.nameofgame = game_type.nameofgame)
+inner join weapons on (GameName.nameofgame = weapons.nameofgame)
+inner join streamers on (GameName.nameofgame = streamers.nameofgame)
+inner join maps on (GameName.nameofgame = maps.nameofgame)
+inner join modes on (GameName.nameofgame = modes.nameofgame);
+
+// diffrentiting on game type
+Select GameName.nameofgame, game_type.game_type_name AS 'Game Type' from GameName
+inner join game_type on (GameName.nameofgame = game_type.nameofgame);
+
+Select GameName.nameofgame, game_type.game_type_name AS 'Game Type' from GameName
+inner join game_type on (GameName.nameofgame = game_type.nameofgame)
+where game_type.game_type_name = 'Both';
+
+Select GameName.nameofgame, game_type.game_type_name AS 'Game Type', ReleaseDate.release_date from GameName
+inner join game_type on (GameName.nameofgame = game_type.nameofgame)
+inner join ReleaseDate on (GameName.nameofgame = ReleaseDate.nameofgame)
+where game_type.game_type_name = 'Offline';
+
+Select GameName.nameofgame, game_type.game_type_name AS 'Game Type', ReleaseDate.release_date from GameName
+inner join game_type on (GameName.nameofgame = game_type.nameofgame)
+inner join ReleaseDate on (GameName.nameofgame = ReleaseDate.nameofgame)
+where game_type.game_type_name = 'Online';
+
+select GameName.nameofgame, ReleaseDate.release_date, LastUpdate.last_update, game_type.game_type_name from GameName
+left join ReleaseDate on (GameName.nameofgame = ReleaseDate.nameofgame)
+inner join LastUpdate on (GameName.nameofgame = LastUpdate.nameofgame)
+inner join game_type on (GameName.nameofgame = game_type.nameofgame);
+
+// left join example 
+select maps.nameofgame, maps.map_amount, modes.mode_numbers from maps
+left join modes on (modes.mode_numbers = maps.map_amount);
+
+//update command
+update streamers SET subscribers = '4.1M' 
+where streamer_id  like 'Tenz';
